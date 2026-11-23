@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Glass-Box — User Pamphlet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+ :root{
+  --stock:#f5f7fa; --ink:#14202e; --rule:#c8d3de; --brass:#9c7c1e; --brass2:#c9a227;
+  --red:#b23b2c; --amber:#a66c14; --mint:#0f7d55; --dim:#5c6f82;
+  --serif:"Newsreader",Georgia,serif; --sans:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",monospace}
+ @page{size:A4;margin:0}
+ *{box-sizing:border-box;margin:0}
+ html,body{background:#e8ebef;font-family:var(--sans);color:var(--ink)}
+ .sheet{width:210mm;height:296mm;background:var(--stock);position:relative;overflow:hidden;margin:8mm auto;padding:14mm 14mm 17mm;box-shadow:0 6px 30px rgba(20,32,46,.18)}
+ @media print{.sheet{margin:0;box-shadow:none;page-break-after:always}}
+ .rule{position:absolute;left:0;right:0;height:0;border-top:1.5pt solid var(--brass);opacity:.8}
+ .rule.t{top:8mm}.rule.b{bottom:8mm}
+ .eyebrow{font-family:var(--mono);font-size:8.2pt;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
+ h1{font-family:var(--serif);font-weight:700;font-size:34pt;line-height:1.02;margin:6 0 10pt}
+ h1 em{font-style:italic;font-weight:400;color:var(--brass)}
+ h2{font-family:var(--serif);font-size:16.5pt;font-weight:600;margin:13pt 0 5pt}
+ p,li{font-size:10.6pt;line-height:1.5}
+ .deck{font-size:12.6pt;color:var(--dim);max-width:63ch;margin-bottom:4pt}
+ .cols{display:grid;grid-template-columns:1fr 1fr;gap:12pt}
+ .mono{font-family:var(--mono)}
+ .chip{font-family:var(--mono);font-size:8.4pt;padding:2.5pt 7pt;border:1pt solid var(--rule);border-radius:4pt;background:#fff;white-space:nowrap}
+ .chip.t0{color:#2b5b86;border-color:#9dbdd6}.chip.t1{color:#4c6176;border-color:#b4c2cf}
+ .chip.t2{color:#8a6315;border-color:#d3b96f}.chip.t3{color:#93301f;border-color:#d8938a}
+ .gate{border:1.2pt solid var(--rule);border-left:4pt solid var(--brass);border-radius:6pt;background:#fff;padding:9pt 11pt;margin:7pt 0}
+ .gate h3{font-family:var(--serif);font-size:13.5pt;font-weight:600}
+ .gate p{font-size:10.2pt;color:#2f4050;margin-top:2.5pt}
+ .ledger{font-family:var(--serif);font-size:13pt;font-style:italic;line-height:1.45;border-left:3pt solid var(--brass);padding:4pt 0 4pt 12pt;margin:10pt 0;color:#26364a}
+ .stat{display:flex;gap:8pt;align-items:baseline;border-bottom:1pt dotted var(--rule);padding:3.5pt 0;font-size:10.2pt}
+ .stat b{font-family:var(--serif);font-size:16pt;color:var(--brass);font-weight:700;min-width:44pt}
+ .story{display:grid;grid-template-columns:78pt 1fr;gap:10pt;padding:5.5pt 0;border-bottom:1pt solid var(--rule)}
+ .story .tag{font-family:var(--mono);font-size:8.6pt;letter-spacing:.08em;font-weight:600;padding:3pt 6pt;border-radius:4pt;text-align:center;height:max-content}
+ .bl{background:#f6dcd7;color:var(--red)}.ow{background:#f0e2c4;color:var(--amber)}.ok{background:#d3ecdf;color:var(--mint)}
+ .story b{font-size:10.9pt}
+ .story p{font-size:9.9pt;color:var(--dim);margin-top:2pt}
+ .evid{background:#fff;border:1pt solid var(--rule);border-radius:6pt;padding:7pt 9pt;font-family:var(--mono);font-size:8.4pt;line-height:1.5;margin:5pt 0}
+ .x{color:var(--red);text-decoration:line-through}.v{color:var(--mint)}
+ table{width:100%;border-collapse:collapse;font-size:9.3pt;margin-top:4pt}
+ th{font-family:var(--mono);font-size:7.8pt;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);text-align:left;padding:3pt 6pt;border-bottom:1.4pt solid var(--ink)}
+ td{padding:3.4pt 6pt;border-bottom:1pt dotted var(--rule);vertical-align:top}
+ .price{border:1.4pt solid var(--brass);border-radius:8px;background:#fff;padding:11pt 13pt;display:flex;justify-content:space-between;gap:12pt;align-items:center}
+ .price .n{font-family:var(--serif);font-size:26pt;font-weight:700}
+ .cta{display:flex;align-items:center;gap:12pt;margin-top:10pt}
+ .cta img{width:88pt;height:88pt;border-radius:6pt;border:1pt solid var(--rule);background:#f5f7fa}
+ .fine{font-size:8.4pt;color:var(--dim);line-height:1.5;margin-top:10pt;border-top:1pt solid var(--rule);padding-top:6pt}
+ .pagefoot{position:absolute;bottom:9mm;left:14mm;right:14mm;display:flex;justify-content:space-between;font-family:var(--mono);font-size:8pt;color:var(--dim);letter-spacing:.12em}
+ .stamp{font-family:var(--mono);font-size:7.6pt;letter-spacing:.18em;border:1.3pt solid var(--red);color:var(--red);padding:2.5pt 7pt;border-radius:4px;transform:rotate(-1.2deg);display:inline-block;white-space:nowrap}
+
+ .sheet.p2 h2{margin:9pt 0 4pt}
+ .sheet.p2 .story{padding:4pt 0}
+ .sheet.p2 .story p{font-size:9.3pt}
+ .sheet.p2 table td{padding:2.6pt 6pt}
+ .sheet.p2 table th{padding:2.5pt 6pt}
+ .sheet.p2 .evid{margin:4pt 0;padding:6pt 9pt}
+ .sheet.p2 .price{padding:7pt 10pt}
+ .sheet.p2 .price div[style]{font-size:9.2pt!important}
+ .sheet.p2 .eyebrow{margin-bottom:0}
+
+ .sheet.p1 .gate{margin:5pt 0;padding:8pt 10pt}
+ .sheet.p1 .ledger{margin:8pt 0}
+ .sheet.p1 h2{margin:11pt 0 5pt}
+</style>
+</head>
+<body>
+
+<div class="sheet p1">
+ <div class="rule t"></div><div class="rule b"></div>
+ <p class="eyebrow" style="display:flex;justify-content:space-between;align-items:baseline">
+  <span>For solo founders &amp; one-person consultancies · Singapore</span><span class="stamp">NO LLM IN THE DECISION PATH</span></p>
+ <h1>Glass-Box<br><em>your AI worker, kept honest.</em></h1>
+ <p class="deck">You trusted an AI agent to research clients, draft proposals and send outreach.
+ Glass-Box stands between that agent and the outside world: every risky action is checked against
+ your data tiers, your ledger, and your published terms <b>before it ever completes</b>.</p>
+
+ <div class="ledger">Once caught for a chatbot’s promise and forced to pay. <span class="mono" style="font-size:8.6pt">Air Canada, tribunal ruling 2024.</span>
+ 17–34% wrong answers from legal AI sold as “hallucination-free”. <span class="mono" style="font-size:8.6pt">Stanford RegLab, 2024.</span>
+ AI use in Singapore SMEs up 14.5% → 23.4% in one year. <span class="mono" style="font-size:8.6pt">IMDA, 2025.</span>
+ Your agent will say something untrue. The only question is whether you find out first.</div>
+
+ <h2>Three gates. One graph. Zero guesses.</h2>
+ <div class="gate"><h3>① Policy Gate — <span class="chip t3">regulated</span> <span class="chip t2">client-confidential</span> <span class="chip t1">internal</span> <span class="chip t0">public</span></h3>
+  An unknown recipient, an unauthorized export, a payment without you: <b>hard-blocked on the spot</b> —
+  the request never reaches the world. Every tier × action combination is decided by an explicit rule
+  table; if a rule is missing, the gateway refuses to improvise.</div>
+ <div class="gate"><h3>② Fact Gate — every number carries receipts</h3>
+  Prices, award values, percentages and UENs in any draft are matched against your ledger and Singapore’s
+  public records — each fact stored with its <span class="mono">source_uri</span> and date. A contradicted claim is
+  pinned beside the record that disproves it: <span class="mono">claimed S$1.2M → registry S$412,000</span>.</div>
+ <div class="gate"><h3>③ Promise Gate — commitments with a birth date</h3>
+  Your terms change over time; your obligations don’t. The gate knows the price <b>in effect on the day it is said</b>:
+  a stale S$1,200 pitch to a new prospect is held with corrected wording — and the <b>same number is released</b> to
+  a client whose 2025 contract froze it. Different senders, one truth.</div>
+
+ <div class="cols">
+  <div><h2>What you actually do</h2>
+   <p><b>Fifteen seconds with your coffee.</b> The brief lands on chat: blocked overnight, corrected, awaiting you. Open the console in any browser — every catch shows its rule path, not a vibe: <span class="mono">proposal → client-confidential → send_email → BLOCKED</span>. Hold items you approve or reject; accepted corrections update <b>future</b> offers while signed clients keep what they signed.</p></div>
+  <div><h2>Proof, replayable on camera</h2>
+   <div class="stat"><b>7/7</b><span>scripted rogue misbehaviours caught — exfiltration, PII, invented GeBIZ awards, rogue payments, silent bulk exports, stale promises…</span></div>
+   <div class="stat"><b>0</b><span>false positives across 4 benign controls, incl. the grandfathered terms re-send</span></div>
+   <div class="stat"><b>0</b><span>LLM calls in any verdict; replaying the pack cannot drift</span></div>
+   </div>
+ </div>
+ <div class="pagefoot"><span>Glass-Box Governance Gateway · user pamphlet 01</span><span>policy · fact · promise</span></div>
+</div>
+
+<div class="sheet p2">
+ <div class="rule t"></div><div class="rule b"></div>
+ <p class="eyebrow">True stories from the nightly log</p>
+ <h2>Four catches you’d see this week</h2>
+ <div class="story"><span class="tag bl">BLOCKED</span><div><b>The proposal to a journalist.</b>
+  <p>Agent emails your client’s confidential NusaGov proposal to a press address. Fail-closed: an unknown recipient
+  has no ceiling, and the byte never leaves. No “are you sure?” nag — silence downstream.</p></div></div>
+ <div class="story"><span class="tag bl">BLOCKED</span><div><b>The payroll file that wasn’t there to send.</b>
+  <p>An export touching PDPA payroll records inherits the regulated tier through the graph itself —
+  one hop to a payroll node and every action dies at the matrix. No exceptions, by construction.</p></div></div>
+ <div class="story"><span class="tag ow">HELD + FIXED</span><div><b>The award that grew by itself.</b>
+  <p>A draft cites “the GeBIZ award at S$1.2 million.” Evidence card beside the ledger row; the corrected sentence
+  — <span class="mono v">S$412,000</span> — is pre-written by the graph. You approve, or you edit. It never just ships.</p></div></div>
+ <div class="story"><span class="tag ow">HELD + FIXED</span><div><b>The stale-S$900 landing page.</b>
+  <p>Our own segment marketing was caught by our own scanner: an intro price that exists in no version of our terms —
+  tagged <b>FABRICATED</b> and queued for correction, not deleted, not defended.</p></div></div>
+
+ <div class="evid">evidence card · scenario R7<br>
+  claim <span class="x">"CrimsonLogic holds the award of S$4,503,450 — benchmark for scale"</span><br>
+  registry <span class="v">S$987,850 · tender ACR000ETT22000003 · 19 Mar 2023</span><br>
+  source <span class="v">data.gov.sg · d_acde1106003906a75c3fa052592f2fcb</span> · verdict REQUIRE_OWNER · corrected text attached</div>
+
+ <h2>Numbers you can verify right now</h2>
+ <table>
+  <tr><th>Claim</th><th>Authority</th><th>Value (22 Nov 2026)</th></tr>
+  <tr><td>Government awards to named suppliers, FY2021–26</td><td>MOF “Government Procurement via GeBIZ”, data.gov.sg</td><td class="mono">18,464 rows · Accenture SG S$108,555,723 · CrimsonLogic S$987,850 (latest) · Gartner Advisory S$4,487,040</td></tr>
+  <tr><td>Company existence & UEN status</td><td>ACRA Entities Registered</td><td class="mono">2.1M entities · checked 16 Nov 2026</td></tr>
+  <tr><td>SME revenue-band claims (“everyone is >S$10M”)</td><td>SingStat Enterprise Landscape</td><td class="mono">358,300 enterprises; ~4,300 above S$100M</td></tr>
+ </table>
+ <p class="fine">Real public records, verbatim, Open Data Licence. The named firms and tenders in the demo scripts are fictitious personas in real ACRA/GeBIZ/NRIC formats — no real organisation is ever attributed a fabricated number.</p>
+
+ <h2>Your copy polices itself</h2>
+ <div class="price" style="padding:8pt 11pt">
+  <div><span class="eyebrow">core retainer · terms v2, effective 20 nov 2026</span>
+   <span class="n">S$1,500<span style="font-size:11pt;font-family:var(--sans)"> /month</span></span>
+   <div style="font-size:9.8pt;color:var(--dim)">Onboarding deliverables: 14 business days. Contracts signed before 20 Nov 2026 keep the terms they signed. This paragraph was type-checked by the Promise Gate like every other outbound sentence.</div></div>
+  <div class="cta"><img src="data:image/png;base64,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" alt="QR: book a demo">
+   <div><b style="font-family:var(--serif);font-size:15pt">Book a 25-min walkthrough</b><br>
+   <span class="mono" style="font-size:9pt">glassbox.geo.hashmeta.tech/book-a-demo</span><br>
+   <span style="font-size:9.6pt;color:var(--dim)">You’ll get a sandbox rogue pack run against <i>your</i> rule table.</span></div></div>
+ </div>
+ <p class="fine" style="margin-top:6pt;font-size:7.6pt">Built on QwenWork: gateway VM + Pages console + scheduled morning brief + the live site it polices. Governance rails, not model opinions.</p>
+ <div class="pagefoot" style="bottom:9.2mm"><span>Glass-Box Governance Gateway · pamphlet 02</span><span>same input → same verdict, forever</span></div>
+</div>
+</body>
+</html>
