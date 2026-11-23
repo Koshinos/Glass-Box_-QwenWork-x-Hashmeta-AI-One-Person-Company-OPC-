@@ -1,0 +1,2 @@
+# Glass-Box_-QwenWork-x-Hashmeta-AI-One-Person-Company-OPC-
+A QwenWork Knowledge-Graph governor — Policy, Fact &amp; Promise gates between a solo firm's AI worker and the real world. 7/7 scripted rogue behaviours caught, zero false positives, LLM-in-decision-path: 0, byte-identical replay; claims checked against live data.gov.sg records; a fabricated price removed from our own published website, on camera.
